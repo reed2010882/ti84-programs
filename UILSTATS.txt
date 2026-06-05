@@ -1,0 +1,83 @@
+PROGRAM:UILSTATS
+:UIL Statistics Suite
+:TI-84 Plus CE
+:
+:ClrHome
+:Lbl MENU
+:Menu("UIL STATS","SAMPLE SIZE (MEAN)",SMS,"SAMPLE SIZE (PROP)",SPS,"CONFIDENCE Z",ZVL,"BINOMIAL PROB",BNM,"NORMAL CDF",NML,"REGRESSION",REG,"EXIT",EXIT
+:
+:Lbl SMS
+:ClrHome
+:Disp "SAMPLE SIZE FOR MEAN"
+:Disp "(σ known)"
+:Input "σ? ",S
+:Input "E (margin)? ",E
+:Menu("CONF%","90%",S90,"95%",S95,"99%",S99
+:Lbl S90
+:1.645→Z:Goto SCALC
+:Lbl S95
+:1.96→Z:Goto SCALC
+:Lbl S99
+:2.576→Z
+:Lbl SCALC
+:round((Z*S/E)²,0)→N
+:Disp "N="+toString(N)
+:Pause:Goto SMS
+:
+:Lbl SPS
+:ClrHome
+:Disp "SAMPLE SIZE FOR PROP"
+:Input "p? ",P
+:Input "E? ",E
+:Menu("CONF%","90%",P90,"95%",P95,"99%",P99
+:Lbl P90
+:1.645→Z:Goto PCALC
+:Lbl P95
+:1.96→Z:Goto PCALC
+:Lbl P99
+:2.576→Z
+:Lbl PCALC
+:round((Z²*P*(1-P))/E²,0)→N
+:Disp "N="+toString(N)
+:Pause:Goto SPS
+:
+:Lbl ZVL
+:ClrHome
+:Disp "CONFIDENCE Z-SCORES"
+:Disp "80%: 1.282"
+:Disp "90%: 1.645"
+:Disp "95%: 1.96"
+:Disp "99%: 2.576"
+:Disp "99.9%: 3.291"
+:Pause:Goto MENU
+:
+:Lbl BNM
+:ClrHome
+:Disp "BINOMIAL PROBABILITY"
+:Input "n (trials)? ",N
+:Input "p (success)? ",P
+:Input "k (successes)? ",K
+:Disp "P(X=k)="+toString(binompdf(N,P,K))
+:Disp "P(X≤k)="+toString(binomcdf(N,P,K))
+:Pause:Goto BNM
+:
+:Lbl NML
+:ClrHome
+:Disp "NORMAL CDF"
+:Input "μ (mean)? ",MU
+:Input "σ? ",SIG
+:Input "LOWER? ",LO
+:Input "UPPER? ",HI
+:Disp "P("+toString(LO)+"≤X≤"+toString(HI)+" )="
+:(normalcdf(LO,HI,MU,SIG))
+:Pause:Goto NML
+:
+:Lbl REG
+:LinReg(ax+b) L1,L2→Y₁
+:Disp "a="+toString(a)
+:Disp "b="+toString(b)
+:Disp "r="+toString(r)
+:Pause:Goto REG
+:
+:Lbl EXIT
+:ClrHome
