@@ -1,0 +1,90 @@
+:PROGRAM:PROJMOT
+:Projectile Motion Suite
+:UIL Calculator Applications
+:TI-84 Plus CE
+:
+:ClrHome
+:Lbl MENU
+:Menu("PROJECTILE MOTION","ALL CALCULATIONS",ALL,"TIME OF FLIGHT",TF,"MAX HEIGHT/HRANGE",MH,"AT TIME t",AT,"HELP/EQUATIONS",HELP,"EXIT",EXIT
+:
+:Lbl ALL
+:ClrHome
+:Disp "ALL PROJECTILE CALCS"
+:Input "v0 (initial vel)? ",V
+:Input "theta (degrees)? ",TH
+:Input "h0 (initial height)? ",H0
+:V*sin(TH*π/180)→VYS  ; vertical speed
+:V*cos(TH*π/180)→VXS  ; horizontal speed
+:9.8→G                ; gravity m/s^2
+:VYS/G→TMAX          ; time to max height
+:(VYS^2)/(2*G)→HMAX  ; max height above launch
+:(-VYS+√(VYS^2+2*G*H0))/G→TFL  ; time of flight
+:V*V*sin(2*TH*π/180)/G→RNG  ; range from ground level
+:ClrHome
+:Disp "vxs="+toString(VXS)
+:Disp "vys="+toString(VYS)
+:Disp "tmax="+toString(TMAX)
+:Disp "hmax="+toString(HMAX+H0)
+:Disp "tf="+toString(TFL)
+:Disp "range="+toString(RNG)
+:Pause
+:Goto MENU
+:
+:Lbl TF
+:ClrHome
+:Disp "TIME OF FLIGHT"
+:Input "v0? ",V
+:Input "theta (deg)? ",TH
+:Input "h0? ",H0
+:V*sin(TH*π/180)→VYS
+:9.8→G
+:(-VYS+√(VYS^2+2*G*H0))/G→TFL
+:Disp "TIME OF FLIGHT:"
+:Disp toString(TFL)+" sec"
+:Pause
+:Goto TF
+:
+:Lbl MH
+:ClrHome
+:Disp "MAX HEIGHT & RANGE"
+:Input "v0? ",V
+:Input "theta (deg)? ",TH
+:V*sin(TH*π/180)→VYS
+:9.8→G
+:(VYS^2)/(2*G)→HMAX
+:V*V*sin(2*TH*π/180)/G→RNG
+:Disp "MAX HEIGHT:"
+:Disp toString(HMAX)+" m"
+:Disp "RANGE:"
+:Disp toString(RNG)+" m"
+:Pause
+:Goto MH
+:
+:Lbl AT
+:ClrHome
+:Disp "POSITION AT TIME t"
+:Input "v0? ",V
+:Input "theta (deg)? ",TH
+:Input "h0? ",H0
+:Input "t (sec)? ",T
+:V*sin(TH*π/180)*T-0.5*9.8*T^2+H0→Y
+:V*cos(TH*π/180)*T→X
+:Disp "x="+toString(X)
+:Disp "y="+toString(Y)
+:Pause
+:Goto AT
+:
+:Lbl HELP
+:ClrHome
+:Disp "PROJECTILE EQNS:"
+:Disp "x=v0cos(theta)t"
+:Disp "y=v0sin(theta)t-1/2gt^2+h0"
+:Disp "tmax=v0sin(theta)/g"
+:Disp "hmax=v0^2sin^2(theta)/(2g)+h0"
+:Disp "range=v0^2sin(2theta)/g"
+:Disp "tf=2v0sin(theta)/g (h0=0)"
+:Pause
+:Goto MENU
+:
+:Lbl EXIT
+:ClrHome
