@@ -1,0 +1,69 @@
+PROGRAM:SAMPLEZ
+:UIL Sample Size Calculator
+:TI-84 Plus CE Compatible
+:
+:ClrHome
+:Lbl START
+:Menu("SAMPLE SIZE CALC","FOR MEAN (σ known)",MEAN,"FOR PROPORTION",PROP,"Z-SCORE CHART",ZSCR,"EXIT",EXIT
+:
+:Lbl MEAN
+:ClrHome
+:Disp "σ (POPULATION STD DEV)?"
+:Input S
+:Disp "E (MARGIN ERROR)?"
+:Input E
+:Menu("CONFIDENCE","90% (Z=1.645)",M90,"95% (Z=1.96)",M95,"99% (Z=2.576)",M99
+:Lbl M90
+:1.645→Z
+:Goto MCALC
+:Lbl M95
+:1.96→Z
+:Goto MCALC
+:Lbl M99
+:2.576→Z
+:Lbl MCALC
+:round((Z*S/E)²,0)→N
+:ClrHome
+:Disp "SAMPLE SIZE FOR MEAN"
+:Disp "n = (Z*σ/E)²"
+:Disp "N = "+toString(N)
+:Pause
+:Goto MEAN
+:
+:Lbl PROP
+:ClrHome
+:Disp "p (ESTIMATED PROP)?"
+:Input P
+:Disp "E (MARGIN ERROR)?"
+:Input E
+:Menu("CONFIDENCE","90%",P90,"95%",P95,"99%",P99
+:Lbl P90
+:1.645→Z
+:Goto PCALC
+:Lbl P95
+:1.96→Z
+:Goto PCALC
+:Lbl P99
+:2.576→Z
+:Lbl PCALC
+:round((Z²*P*(1-P))/E²,0)→N
+:ClrHome
+:Disp "SAMPLE SIZE FOR PROP"
+:Disp "n = (Z²*p*(1-p))/E²"
+:Disp "N = "+toString(N)
+:Pause
+:Goto PROP
+:
+:Lbl ZSCR
+:ClrHome
+:Disp "COMMON Z-SCORES:"
+:Disp "80%: 1.282"
+:Disp "90%: 1.645"
+:Disp "95%: 1.96"
+:Disp "99%: 2.576"
+:Disp "99.9%: 3.291"
+:Pause
+:Goto START
+:
+:Lbl EXIT
+:ClrHome
