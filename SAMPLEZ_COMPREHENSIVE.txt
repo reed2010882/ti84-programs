@@ -1,0 +1,186 @@
+PROGRAM:UILSTATS
+:Main menu for UIL Statistics
+:Created for TI-84 Plus CE
+:
+:ClrHome
+:Lbl MAIN
+:Menu("UIL STATS","SAMPLE N (MEAN)",SM,"SAMPLE N (PROP)",SP,"Z-SCORES/CHARTS",ZS,"PROBABILITY",PR,"DESC STATS",DS,"REGRESSION",RE,"EXIT",EX
+:
+:Lbl SM
+:ClrHome
+:Input "σ (POP STD DEV)? ",S
+:Input "E (MARGIN ERROR)? ",E
+:Menu("CONF","90% (Z=1.645)",SM90,"95% (Z=1.96)",SM95,"99% (Z=2.576)",SM99
+:Lbl SM90
+:1.645→Z:Goto SM2
+:Lbl SM95
+:1.96→Z:Goto SM2
+:Lbl SM99
+:2.576→Z
+:Lbl SM2
+:round((Z*S/E)²,0)→N
+:ClrHome
+:Output(1,1,"SAMPLE SIZE FOR MEAN"
+:Output(2,1,"Formula: n=(Z*σ/E)²"
+:Output(3,1,"N="
+:Output(3,3,N
+:Pause:ClrHome:Goto SM
+:
+:Lbl SP
+:ClrHome
+:Input "p (PROPORTION)? ",P
+:Input "E (MARGIN ERROR)? ",E
+:Menu("CONF","90%",SP90,"95%",SP95,"99%",SP99
+:Lbl SP90
+:1.645→Z:Goto SP2
+:Lbl SP95
+:1.96→Z:Goto SP2
+:Lbl SP99
+:2.576→Z
+:Lbl SP2
+:round((Z²*P*(1-P))/E²,0)→N
+:ClrHome
+:Output(1,1,"SAMPLE SIZE FOR PROP"
+:Output(2,1,"Formula: n=(Z²*p(1-p))/E²"
+:Output(3,1,"N="
+:Output(3,3,N
+:Pause:ClrHome:Goto SP
+:
+:Lbl ZS
+:ClrHome
+:Output(1,1,"Z-SCORE TABLES"
+:Output(2,1,"80%: 1.282"
+:Output(3,1,"90%: 1.645"
+:Output(4,1,"95%: 1.96"
+:Output(5,1,"99%: 2.576"
+:Output(6,1,"99.9%: 3.291"
+:Pause
+:ClrHome
+:Input "Z-SCORE? ",Z
+:round((1+erf(Z/√(2)))/2,4)→A
+:round(normalcdf(-Z,Z),4)→C
+:ClrHome
+:Output(1,1,"AREA FROM -Z to Z"
+:Output(2,1,"using erf: "
+:Output(2,11,A
+:Output(3,1,"using normalcdf: "
+:Output(3,16,C
+:Pause
+:Goto MAIN
+:
+:Lbl PR
+:ClrHome
+:Menu("PROBABILITY","BINOMIAL",PR1,"COMBINATIONS",PR2,"PERMUTATIONS",PR3,"Z-SCORE TEST",PR4,"BACK",MAIN
+:Lbl PR1
+:ClrHome
+:Input "n? ",N
+:Input "p? ",P
+:Input "k SUCCESSES? ",K
+:binompdf(N,P,K)→B
+:binomcdf(N,P,K)→C
+:ClrHome
+:Output(1,1,"P(X=k) = "
+:Output(1,10,B
+:Output(2,1,"P(X≤k) = "
+:Output(2,10,C
+:Pause
+:Goto PR1
+:Lbl PR2
+:ClrHome
+:Input "n? ",N
+:Input "r? ",R
+:nCr→C
+:Output(1,11,C
+:Pause
+:Goto PR2
+:Lbl PR3
+:ClrHome
+:Input "n? ",N
+:Input "r? ",R
+:nPr→P
+:Output(1,11,P
+:Pause
+:Goto PR3
+:Lbl PR4
+:ClrHome
+:Input "μ? ",MU
+:Input "σ? ",SIG
+:Input "X? ",X
+:(X-MU)/SIG→Z
+:ClrHome
+:Output(1,1,"Z = "
+:Output(1,4,Z
+:Pause
+:Goto PR
+:
+:Lbl DS
+:ClrHome
+:Menu("DESC STATS","MEAN",DS1,"MEDIAN",DS2,"STD DEV",DS3,"NORMAL CALC",DS4,"BACK",MAIN
+:Lbl DS1
+:ClrHome
+:Input "LIST (L1-L6)? ",L
+:mean(L)→M
+:Output(1,1,"MEAN = "
+:Output(1,8,M
+:Pause
+:Goto DS1
+:Lbl DS2
+:ClrHome
+:Input "LIST (L1-L6)? ",L
+:median(L)→M
+:Output(1,1,"MEDIAN = "
+:Output(1,9,M
+:Pause
+:Goto DS2
+:Lbl DS3
+:ClrHome
+:Input "LIST (L1-L6)? ",L
+:stdDev(L)→S
+:Output(1,1,"STD DEV = "
+:Output(1,11,S
+:Pause
+:Goto DS3
+:Lbl DS4
+:ClrHome
+:Input "μ? ",MU
+:Input "σ? ",SIG
+:Input "X? ",X
+:Input "LOWER BOUND? ",LO
+:Input "UPPER BOUND? ",HI
+:(X-MU)/SIG→Z
+:sum(mean(X)→S
+:ClrHome
+:Output(1,1,"Z = "
+:Output(1,4,Z
+:Pause
+:Goto DS
+:
+:Lbl RE
+:ClrHome
+:Menu("REGRESSION","LINREG AX+B",RE1,"LINREG A+XB",RE2,"PREDICT X",RE3,"PREDICT Y",RE4,"BACK",MAIN
+:Lbl RE1
+:LinReg(ax+b) L1,L2→Y₁
+:ClrHome
+:Output(1,1,"y=ax+b done"
+:Output(2,1,"a="
+:Output(2,3,а
+:Output(3,1,"b="
+:Output(3,3,b
+:Pause
+:Goto RE
+:Lbl RE2
+:LinReg(a+bx) L1,L2→Y₁
+:Goto RE1
+:Lbl RE3
+:ClrHome
+:Input "X VAL? ",XV
+:Y₁(XV)→YV
+:Output(1,1,"Y = "
+:Output(1,4,YV
+:Pause
+:Goto RE3
+:Lbl RE4
+:Goto RE3
+:
+:Lbl EX
+:ClrHome
